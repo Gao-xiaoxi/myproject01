@@ -2,7 +2,7 @@
     <div class="goods">
       <!-- 搜索条件 -->
       <div class="header">
-         <el-input placeholder="请输入内容" v-model="input"></el-input>
+         <el-input @change='searchInput' placeholder="请输入内容" v-model="input"></el-input>
          <el-button type="primary">查 询</el-button>
          <el-button type="primary">添 加</el-button>
       </div>
@@ -23,7 +23,7 @@
             <template slot-scope="scope">
                <el-button
                  size="mini"
-                 @click="handleEdit(scope.$index, scope.row)">编辑的按钮</el-button>
+                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                <el-button
                  size="mini"
                  type="danger"
@@ -61,6 +61,17 @@ export default {
    computed:{
    },
    methods:{
+      searchInput(input_){
+         console.log('搜索的值---', input_)
+         this.$api.getGoodsSearch(input_)
+         .then(res=>{
+         console.log('搜索的值---res.data', res.data)
+         console.log('搜索的值---res.data.results', res.data.results)
+         this.tableData = res.data.results;
+         console.log(res.data.results)
+      }
+      )
+      },
       handleEdit(){
 
       },

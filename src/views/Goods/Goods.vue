@@ -5,7 +5,9 @@
          <el-input @change='searchInput' placeholder="请输入商品ID" v-model="input"></el-input>
          <el-input @change='searchInput' placeholder="请输入商品名称" v-model="input2"></el-input>
          <el-button type="primary">查 询</el-button>
-         <el-button type="primary">添 加</el-button>
+         <el-button type="primary">
+         <router-link to="/add-goods" style="color:#fff;">添 加</router-link>
+         </el-button>
       </div>
       <!-- 表格 -->
       <div class="wapper">

@@ -2,7 +2,8 @@
     <div class="goods">
       <!-- 搜索条件 -->
       <div class="header">
-         <el-input @change='searchInput' placeholder="请输入内容" v-model="input"></el-input>
+         <el-input @change='searchInput' placeholder="请输入商品ID" v-model="input"></el-input>
+         <el-input @change='searchInput' placeholder="请输入商品名称" v-model="input2"></el-input>
          <el-button type="primary">查 询</el-button>
          <el-button type="primary">添 加</el-button>
       </div>
@@ -44,13 +45,12 @@ export default {
    data() {
       return {
          input: '',
-         tableData:[]
+         input2: '',
+         tableData:[],
       }
    },
    created(){
-      this.$api.getGoodsList(
-
-      )
+      this.$api.getGoodsList()
       .then(res=>{
          console.log(res.data)
          this.tableData = res.data.results;
@@ -61,14 +61,16 @@ export default {
    computed:{
    },
    methods:{
-      searchInput(input_){
-         console.log('搜索的值---', input_)
-         this.$api.getGoodsSearch(input_)
+      // this.$axios({methos:"post" url:"路由地址" data:{参数1："参数1值",参数2："参数2值"}})
+      searchInput(){
+         console.log('搜索的值---', this.input)
+         console.log('搜索的值2---', this.input2)
+         this.$api.getGoodsSearch(this.input, this.input2)
          .then(res=>{
          console.log('搜索的值---res.data', res.data)
          console.log('搜索的值---res.data.results', res.data.results)
          this.tableData = res.data.results;
-         console.log(res.data.results)
+      //    // console.log(res.data.results)
       }
       )
       },
@@ -88,7 +90,11 @@ export default {
 }
 .header{
       display: flex;
+      margin-left: 20px;
       button{
+         margin-left: 20px;
+      }
+      el-input{
          margin-left: 20px;
       }
 }

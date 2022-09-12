@@ -5,8 +5,9 @@ const api = {
       getGoodsList(){
             return axios.get(base.goodsList)
       },
-      getGoodsSearch(params){
-            return axios.get(base.goodsSearch+params)
+      getGoodsSearch(id, good_name){
+            const params = {'id':id, 'good_name':good_name}
+            return axios.post(base.goodsSearch, params)
       }
 
 }

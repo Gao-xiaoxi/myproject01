@@ -38,31 +38,45 @@
       </div>
       <!-- 分页 -->
       <div>
-         
+         <MyPagination :total="total" :page-size="page_size"  @changePage='changePage'/>
       </div>
     </div>
 </template>
 <script>
+import MyPagination from '../../components/MyPagination.vue'
 export default {
+   components:{
+      MyPagination
+   },
    data() {
       return {
          input: '',
          input2: '',
          tableData:[],
+         total: 0,
+         page_size: 0,
       }
    },
    created(){
-      this.$api.getGoodsList()
-      .then(res=>{
-         console.log(res.data)
-         this.tableData = res.data.results;
-         console.log(res.data.results)
-      }
-      )
+      // this.$api.getGoodsList(
+      //    {page:1}
+      // )
+      // .then(res=>{
+      //    console.log(res.data)
+      //    this.tableData = res.data.results;
+      //    this.total = res.data.total
+      //    this.page_size = res.data.page_size
+      //    console.log(res.data.results)
+      // }
+      // )
+      this.http(1)
    },
    computed:{
    },
    methods:{
+      changePage(num){
+         this.http(num)
+      },
       // this.$axios({methos:"post" url:"路由地址" data:{参数1："参数1值",参数2："参数2值"}})
       searchInput(){
          console.log('搜索的值---', this.input)
@@ -81,6 +95,23 @@ export default {
       },
       handleDelete(){
          
+      },
+      http(page){
+         this.$api.getGoodsList(
+         {page}
+      )
+      .then(res=>{
+         console.log(res.data)
+         // this.tableData = res.data.results;
+         this.tableData = res.data.results.slice((page-1)*res.data.page_size, page*res.data.page_size)
+         console.log(page)
+         console.log(res.data.results.slice((page-1)*res.data.page_size, page*res.data.page_size))
+         this.total = res.data.total;
+         this.page_size = res.data.page_size;
+         // console.log(res.data.page_size)
+         // console.log(res.data.results)
+      }
+      )  
       }
    },
 }

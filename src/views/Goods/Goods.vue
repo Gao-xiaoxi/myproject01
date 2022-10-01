@@ -49,7 +49,7 @@
 </template>
 <script>
 import MyPagination from '../../components/MyPagination.vue'
-import GoodsDialog from '../../components/GoodsDialog.vue'
+import GoodsDialog from './GoodsDialog.vue'
 export default {
    components:{
       MyPagination,

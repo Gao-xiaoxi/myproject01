@@ -6,8 +6,9 @@
          <el-input @change='searchInput' placeholder="请输入商品名称" v-model="input2"></el-input>
          <el-button type="primary">查 询</el-button>
          <el-button type="primary">
-         <router-link to="/add-goods" style="color:#fff;">添 加</router-link>
+         <router-link to="/add-goods" style="color:#fff;">页面添加</router-link>
          </el-button>
+         <el-button type="primary" @click="addGoods">弹框添加</el-button>
       </div>
       <!-- 表格 -->
       <div class="wapper">
@@ -40,13 +41,19 @@
       <div>
          <MyPagination :total="total" :page-size="page_size"  @changePage='changePage'/>
       </div>
+      <!-- 弹框 添加商品-->
+      <div>
+         <GoodsDialog :dialogVisible='dialogVisible' @changedialogVisible='changedialogVisible' />
+      </div>
     </div>
 </template>
 <script>
 import MyPagination from '../../components/MyPagination.vue'
+import GoodsDialog from '../../components/GoodsDialog.vue'
 export default {
    components:{
-      MyPagination
+      MyPagination,
+      GoodsDialog
    },
    data() {
       return {
@@ -55,6 +62,7 @@ export default {
          tableData:[],
          total: 0,
          page_size: 0,
+         dialogVisible: false,
       }
    },
    created(){
@@ -74,6 +82,12 @@ export default {
    computed:{
    },
    methods:{
+      changedialogVisible(){
+         this.dialogVisible = false;
+      },
+      addGoods(){
+         this.dialogVisible = true;
+      },
       changePage(num){
          this.http(num)
       },

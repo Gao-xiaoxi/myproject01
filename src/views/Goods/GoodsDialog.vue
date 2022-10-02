@@ -7,7 +7,7 @@
   width="65%">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <el-form-item label="规格类目" prop="good_category">
-    <el-button type="primary">类目选择</el-button>
+    <el-button type="primary" @click="innerVisible=true">类目选择</el-button>
   </el-form-item>
   <el-form-item label="商品名称" prop="good_name">
     <el-input v-model="ruleForm.good_name"></el-input>
@@ -33,14 +33,28 @@
     <el-button @click="close">取 消</el-button>
     <el-button type="primary" @click="close">确 定</el-button>
   </span>
+
+  <!--类目选择的内弹框-->
+  <el-dialog
+      width="40%"
+      title="类目选择"
+      :visible.sync="innerVisible"
+      append-to-body>
+      <TreeGoods />
+    </el-dialog>
 </el-dialog>
     </div>
 </template>
 <script>
+import TreeGoods from './TreeGoods.vue'
 export default {
+   components:{
+    TreeGoods
+  },
    props: ["dialogVisible"],
    data() {
       return {
+          innerVisible:false,
           ruleForm: {
           good_category:'',
           good_name: '',

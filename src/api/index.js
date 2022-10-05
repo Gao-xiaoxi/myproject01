@@ -12,7 +12,16 @@ const api = {
       addGoods(form){
             const params = form
             return axios.post(base.goodsAdd, params)
-      }
+      },
+      getCategoryList(){
+            return axios.get(base.categoryList)
+      },
+      ParentCategoryList(){
+            return axios.get(base.ParentCategoryList)
+      },
+      ChildCategoryList(params){
+            return axios.post(base.ChildCategoryList, params)
+      },
 
 }
 
